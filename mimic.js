@@ -214,15 +214,28 @@ function startGame() {
   total = 0;
   setScore(score, total);
   target = setRandomEmoji();
+
 }
 
 function setRandomEmoji() {
   var randIdx = Math.floor(Math.random() * (reducedEmojis.length-1));
-  var targetEmoji = reducedEmojis[randIdx];
-  setTargetEmoji(targetEmoji);
-  console.log("New Target: " + targetEmoji);
+  var newEmoji = reducedEmojis[randIdx];
+  setTargetEmoji(newEmoji);
+  console.log("New Target: " + newEmoji);
   incrementTotal();
-  return targetEmoji;
+
+  // Start timer
+  setTimeout(function() {
+    if (target == newEmoji) {
+      console.log('Timeout!');
+      // If target remains the same, change to another emoji
+      console.log('This: ' + newEmoji + ' Target:' + target);
+      target = setRandomEmoji();
+    } else {
+      console.log('No Time Out!')
+    }
+  }, 10000);
+  return newEmoji;
 }
 
 // Draw the dominant emoji on the image
